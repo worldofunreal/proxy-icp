@@ -20,38 +20,6 @@ const logRequest = (req, res, next) => {
 
 app.use(logRequest);
 
-app.post('/api/getUserByUsername', async (req, res) => {
-  const { username } = req.body;
-
-  // Check if username is provided
-  if (!username) {
-    return res.status(400).json({ error: 'Missing username parameter' });
-  }
-
-  try {
-    // X API v2 endpoint to get user by username
-    const searchUrl = `https://api.twitter.com/2/users/by/username/${encodeURIComponent(username)}`;
-    const ACCESS_TOKEN = '840305705747861504-jgI0BCyAlDAlxlUNDRMnZNv2sQyVS2C';
-
-    const searchResponse = await axios.get(searchUrl, {
-      headers: {
-        'Authorization': `Bearer ${ACCESS_TOKEN}`
-      }
-    });
-
-    // Check if the user was found
-    const foundUser = searchResponse.data.data;
-    if (!foundUser) {
-      return res.status(404).json({ error: 'User not found on X API' });
-    }
-
-    // Return the user information
-    res.json(foundUser);
-  } catch (error) {
-    console.error(`Error fetching user by username:`, error.response ? error.response.data : error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
 // Player Endpoints
 app.post('/api/registerPlayer', async (req, res) => {
   const { userId, username, avatarId } = req.body;

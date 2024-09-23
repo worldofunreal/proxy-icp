@@ -1,0 +1,530 @@
+type Username__1 = text;
+type Username = text;
+type TokenID = nat;
+type Time = int;
+type RewardType = 
+ variant {
+   Chest;
+   Flux;
+   Shards;
+ };
+type RegistrationDate = int;
+type PrivacySetting = 
+ variant {
+   acceptAll;
+   blockAll;
+   friendsOfFriends;
+ };
+type PlayerStats = 
+ record {
+   botDifficulty: nat;
+   botMode: nat;
+   characterID: nat;
+   damageCritic: nat;
+   damageDealt: nat;
+   damageEvaded: nat;
+   damageTaken: nat;
+   deploys: nat;
+   energyChargeRate: nat;
+   energyGenerated: nat;
+   energyUsed: nat;
+   energyWasted: nat;
+   faction: nat;
+   gameMode: nat;
+   kills: nat;
+   playerId: PlayerId__2;
+   secRemaining: nat;
+   wonGame: bool;
+   xpEarned: nat;
+ };
+type PlayerId__2 = principal;
+type PlayerId__1 = principal;
+type PlayerId = principal;
+type PlayerGamesStats = 
+ record {
+   energyGenerated: nat;
+   energyUsed: nat;
+   energyWasted: nat;
+   gamesLost: nat;
+   gamesPlayed: nat;
+   gamesWon: nat;
+   totalDamageCrit: nat;
+   totalDamageDealt: nat;
+   totalDamageEvaded: nat;
+   totalDamageTaken: nat;
+   totalGamesGameMode: vec GamesWithGameMode;
+   totalGamesWithCharacter: vec GamesWithCharacter;
+   totalGamesWithFaction: vec GamesWithFaction;
+   totalKills: nat;
+   totalXpEarned: nat;
+ };
+type Player = 
+ record {
+   avatar: AvatarID__1;
+   description: Description__1;
+   elo: float64;
+   friends: vec FriendDetails;
+   id: PlayerId__2;
+   level: Level__1;
+   registrationDate: RegistrationDate;
+   username: Username__1;
+ };
+type OverallStats = 
+ record {
+   totalDamageDealt: nat;
+   totalEnergyGenerated: nat;
+   totalEnergyUsed: nat;
+   totalEnergyWasted: nat;
+   totalGamesGameMode: vec OverallGamesWithGameMode;
+   totalGamesMP: nat;
+   totalGamesPlayed: nat;
+   totalGamesSP: nat;
+   totalGamesWithCharacter: vec OverallGamesWithCharacter;
+   totalGamesWithFaction: vec OverallGamesWithFaction;
+   totalKills: nat;
+   totalTimePlayed: nat;
+   totalXpEarned: nat;
+ };
+type OverallGamesWithGameMode = 
+ record {
+   gameModeID: nat;
+   gamesPlayed: nat;
+ };
+type OverallGamesWithFaction = 
+ record {
+   factionID: nat;
+   gamesPlayed: nat;
+ };
+type OverallGamesWithCharacter = 
+ record {
+   characterID: nat;
+   gamesPlayed: nat;
+ };
+type Notification = 
+ record {
+   from: PlayerId__2;
+   message: text;
+   timestamp: Time;
+ };
+type MissionsUser = 
+ record {
+   expiration: nat64;
+   finish_date: nat64;
+   finished: bool;
+   id_mission: nat;
+   missionType: MissionType;
+   progress: nat;
+   reward_amount: nat;
+   reward_type: MissionRewardType;
+   start_date: nat64;
+   total: nat;
+ };
+type MissionType__1 = 
+ variant {
+   DamageDealt;
+   DamageTaken;
+   EnergyUsed;
+   FactionPlayed;
+   GameModePlayed;
+   GamesCompleted;
+   GamesWon;
+   Kills;
+   UnitsDeployed;
+   XPEarned;
+ };
+type MissionType = 
+ variant {
+   DamageDealt;
+   DamageTaken;
+   EnergyUsed;
+   FactionPlayed;
+   GameModePlayed;
+   GamesCompleted;
+   GamesWon;
+   Kills;
+   UnitsDeployed;
+   XPEarned;
+ };
+type MissionRewardType = 
+ variant {
+   Chest;
+   Flux;
+   Shards;
+ };
+type MatchID__1 = nat;
+type MatchID = nat;
+type MatchData = 
+ record {
+   matchID: MatchID__1;
+   player1: MMInfo;
+   player2: opt MMInfo;
+   status: MMStatus;
+ };
+type MMStatus = 
+ variant {
+   Accepted;
+   Accepting;
+   Ended;
+   InGame;
+   Reserved;
+   Searching;
+ };
+type MMSearchStatus = 
+ variant {
+   Assigned;
+   Available;
+   NotAvailable;
+ };
+type MMInfo = 
+ record {
+   elo: float64;
+   id: PlayerId__2;
+   lastPlayerActive: nat64;
+   matchAccepted: bool;
+   playerGameData: text;
+   username: Username__1;
+ };
+type LogEntry = 
+ record {
+   amount: opt nat;
+   itemType: ItemType;
+   timestamp: nat64;
+   tokenID: opt TokenID;
+   user: principal;
+ };
+type Level__1 = nat;
+type Level = nat;
+type ItemType = 
+ variant {
+   Chest;
+   Flux;
+   GameNFTs;
+   Shards;
+ };
+type IndividualAchievementProgress = 
+ record {
+   completed: bool;
+   individualAchievement: IndividualAchievement;
+   progress: nat;
+ };
+type IndividualAchievement = 
+ record {
+   achievementId: nat;
+   achievementType: AchievementType;
+   completed: bool;
+   id: nat;
+   name: text;
+   progress: nat;
+   requiredProgress: nat;
+   reward: vec AchievementReward;
+ };
+type GamesWithGameMode = 
+ record {
+   gameModeID: nat;
+   gamesPlayed: nat;
+   gamesWon: nat;
+ };
+type GamesWithFaction = 
+ record {
+   factionID: nat;
+   gamesPlayed: nat;
+   gamesWon: nat;
+ };
+type GamesWithCharacter = 
+ record {
+   characterID: nat;
+   gamesPlayed: nat;
+   gamesWon: nat;
+ };
+type FullMatchData = 
+ record {
+   matchID: MatchID__1;
+   player1:
+    record {
+      avatar: AvatarID__1;
+      elo: float64;
+      id: PlayerId__2;
+      level: Level__1;
+      matchAccepted: bool;
+      playerGameData: text;
+      username: Username__1;
+    };
+   player2:
+    opt
+     record {
+       avatar: AvatarID__1;
+       elo: float64;
+       id: PlayerId__2;
+       level: Level__1;
+       matchAccepted: bool;
+       playerGameData: text;
+       username: Username__1;
+     };
+   status: MMStatus;
+ };
+type FriendRequest = 
+ record {
+   from: PlayerId__2;
+   timestamp: int;
+   to: PlayerId__2;
+ };
+type FriendDetails = 
+ record {
+   avatar: AvatarID__1;
+   playerId: PlayerId__2;
+   username: Username__1;
+ };
+type Description__1 = text;
+type Description = text;
+type Cosmicrafts = 
+ service {
+   acceptFriendRequest: (PlayerId) -> (bool, text);
+   adminManagement: (AdminFunction) -> (bool, text);
+   assignAchievementsToUser: (PlayerId) -> ();
+   blockUser: (PlayerId) -> (bool, text);
+   cancelMatchmaking: () -> (bool, text);
+   claimAchievementReward: (nat) -> (bool, text);
+   claimGeneralReward: (nat) -> (bool, text);
+   claimUserReward: (nat) -> (bool, text);
+   createAchievement: (text, vec nat, nat, nat, vec AchievementReward) ->
+    (bool, text, nat);
+   createCategory: (text, vec nat, nat, vec AchievementReward) -> (bool,
+    text, nat);
+   createIndividualAchievement: (text, AchievementType, nat,
+    vec AchievementReward, nat) -> (bool, text, nat);
+   createUserMission: (PlayerId) -> (bool, text, nat);
+   declineFriendRequest: (PlayerId) -> (bool, text);
+   getAchievements: () ->
+    (vec
+      record {
+        AchievementCategory;
+        vec Achievement;
+        vec IndividualAchievementProgress;
+      });
+   getAllPlayers: () -> (vec Player) query;
+   getAllSearching: () -> (vec MatchData) query;
+   getBlockedUsers: () -> (vec PlayerId) query;
+   getCosmicraftsStats: () -> (OverallStats) query;
+   getFriendRequests: () -> (vec FriendRequest) query;
+   getFriendsList: () -> (opt vec PlayerId) query;
+   getFullUserProfile: (PlayerId) ->
+    (opt record {
+           Player;
+           PlayerGamesStats;
+           AverageStats;
+         }) query;
+   getGeneralMissionProgress: (principal, nat) -> (opt MissionsUser) query;
+   getGeneralMissions: () -> (vec MissionsUser);
+   getMatchDetails: (MatchID) ->
+    (opt record {
+           MatchData;
+           vec record {
+                 Player;
+                 PlayerGamesStats;
+               };
+         }) query;
+   getMatchHistoryByPrincipal: (PlayerId) ->
+    (vec record {
+           MatchID;
+           opt BasicStats;
+         }) query;
+   getMatchIDsByPrincipal: (PlayerId) -> (vec MatchID) query;
+   getMatchParticipants: (MatchID) ->
+    (opt record {
+           principal;
+           opt principal;
+         }) query;
+   getMatchSearching: (text) -> (MMSearchStatus, nat, text);
+   getMatchStats: (MatchID) -> (opt BasicStats) query;
+   getMintedInfo: (principal) ->
+    (record {
+       chests: record {
+                 quantity: nat;
+                 tokenIDs: vec TokenID;
+               };
+       flux: nat;
+       gameNFTs: record {
+                   quantity: nat;
+                   tokenIDs: vec TokenID;
+                 };
+       shards: nat;
+     }) query;
+   getMyMatchData: () -> (opt FullMatchData, nat) composite_query;
+   getMyPrivacySettings: () -> (PrivacySetting) query;
+   getMyStats: () -> (opt PlayerGamesStats) query;
+   getNotifications: () -> (vec Notification) query;
+   getPlayer: () -> (opt Player) query;
+   getPlayerAverageStats: (principal) -> (opt AverageStats) query;
+   getPlayerElo: (principal) -> (float64) query;
+   getPlayerStats: (PlayerId) -> (opt PlayerGamesStats) query;
+   getProfile: (PlayerId) -> (opt Player) query;
+   getTransactionLogs: (principal, ItemType) -> (vec LogEntry) query;
+   getUserMissionProgress: (PlayerId, nat) -> (opt MissionsUser) query;
+   getUserMissions: () -> (vec MissionsUser);
+   isGameMatched: () -> (bool, text) query;
+   mintDeck: (principal) -> (bool, text);
+   openChest: (nat) -> (bool, text);
+   registerPlayer: (Username, AvatarID) -> (bool, opt Player, text);
+   saveFinishedGame: (MatchID,
+    record {
+      botDifficulty: nat;
+      botMode: nat;
+      characterID: nat;
+      damageCritic: nat;
+      damageDealt: nat;
+      damageEvaded: nat;
+      damageTaken: nat;
+      deploys: nat;
+      energyChargeRate: nat;
+      energyGenerated: nat;
+      energyUsed: nat;
+      energyWasted: nat;
+      faction: nat;
+      gameMode: nat;
+      kills: nat;
+      secRemaining: nat;
+      wonGame: bool;
+      xpEarned: nat;
+    }) -> (bool, text);
+   searchActiveGeneralMissions: (principal) -> (vec MissionsUser) query;
+   searchActiveUserMissions: (PlayerId) -> (vec MissionsUser) query;
+   searchUserByUsername: (Username) -> (vec Player) query;
+   sendFriendRequest: (PlayerId) -> (bool, text);
+   setPlayerActive: () -> (bool);
+   setPrivacySetting: (PrivacySetting) -> (bool, text);
+   test: (PlayerId) ->
+    (opt
+      record {
+        elo: float64;
+        gamesLost: nat;
+        gamesWon: nat;
+        level: Level;
+        username: Username;
+        xp: nat;
+      }) query;
+   unblockUser: (PlayerId) -> (bool, text);
+   updateAndGetAchievements: () ->
+    (vec
+      record {
+        AchievementCategory;
+        vec Achievement;
+        vec IndividualAchievementProgress;
+      });
+   updateAvatar: (AvatarID) -> (bool, PlayerId, text);
+   updateCategoryProgress: (PlayerId, nat) -> (bool, text);
+   updateDescription: (Description) -> (bool, PlayerId, text);
+   updateGeneralAchievementProgress: (PlayerId, nat) -> (bool, text);
+   updateIndividualAchievementProgress: (PlayerId,
+    vec AchievementProgress) -> (bool, text);
+   updateUsername: (Username) -> (bool, PlayerId, text);
+   upgradeNFT: (TokenID) -> (bool, text);
+ };
+type BasicStats = record {playerStats: vec PlayerStats;};
+type AverageStats = 
+ record {
+   averageDamageDealt: nat;
+   averageEnergyGenerated: nat;
+   averageEnergyUsed: nat;
+   averageEnergyWasted: nat;
+   averageKills: nat;
+   averageXpEarned: nat;
+ };
+type AvatarID__1 = nat;
+type AvatarID = nat;
+type AdminFunction = 
+ variant {
+   CreateMission: record {
+                    text;
+                    MissionType__1;
+                    RewardType;
+                    nat;
+                    nat;
+                    nat64;
+                  };
+   CreateMissionsPeriodically;
+   MintChest: record {
+                principal;
+                nat;
+              };
+ };
+type AchievementType = 
+ variant {
+   AchievementsUnlocked;
+   ChestsMinted;
+   ChestsOpened;
+   DailyMissionsCompleted;
+   DamageDealt;
+   DamageTaken;
+   EnergyUsed;
+   FluxMinted;
+   FriendsAdded;
+   GameModePlayed;
+   GamesCompleted;
+   GamesPlayed;
+   GamesWithCharacter;
+   GamesWithFaction;
+   GamesWon;
+   Kills;
+   LevelReached;
+   NFTsMinted;
+   RewardsClaimed;
+   ShardsMinted;
+   TimePlayed;
+   UnitsDeployed;
+   UserMissionsCompleted;
+   WeeklyMissionsCompleted;
+   XPEarned;
+ };
+type AchievementTier = 
+ variant {
+   Bronze;
+   Diamond;
+   Gold;
+   Legend;
+   Master;
+   Platinum;
+   Silver;
+ };
+type AchievementRewardsType = 
+ variant {
+   Chest;
+   CosmicPower;
+   Flux;
+   Shards;
+ };
+type AchievementReward = 
+ record {
+   amount: nat;
+   rewardType: AchievementRewardsType;
+ };
+type AchievementProgress = 
+ record {
+   achievementId: nat;
+   completed: bool;
+   playerId: PlayerId__1;
+   progress: nat;
+ };
+type AchievementCategory = 
+ record {
+   achievements: vec nat;
+   completed: bool;
+   id: nat;
+   name: text;
+   progress: nat;
+   requiredProgress: nat;
+   reward: vec AchievementReward;
+   tier: AchievementTier;
+ };
+type Achievement = 
+ record {
+   categoryId: nat;
+   completed: bool;
+   id: nat;
+   individualAchievements: vec nat;
+   name: text;
+   progress: nat;
+   requiredProgress: nat;
+   reward: vec AchievementReward;
+   tier: AchievementTier;
+ };
+service : () -> Cosmicrafts
